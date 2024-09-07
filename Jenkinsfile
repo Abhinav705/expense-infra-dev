@@ -38,10 +38,10 @@ pipeline {
                     params.action == 'Apply'
                 }
             }
-            // input {
-            //     message "Should we Continue ?"
-            //     ok "Yes, we should."
-            // }
+            input {
+                message "Should we Continue ?"
+                ok "Yes, we should."
+            }
             steps {
                 sh '''
                 cd 01-vpc
