@@ -1,5 +1,5 @@
 # module "db" {
-#   source = "../../terraform-security-group"
+#   source = "../../../terraform-security-group"
 #   #it takes the module files from the above mentioned path
 #   project_name = var.project_name
 #   environment = var.environment
@@ -12,7 +12,7 @@
 # }
 
 # module "backend" {
-#   source = "../../terraform-security-group"
+#   source = "../../../terraform-security-group"
 #   #it takes the module files from the above mentioned path
 #   project_name = var.project_name
 #   environment = var.environment
@@ -25,7 +25,7 @@
 # }
 
 # module "frontend" {
-#   source = "../../terraform-security-group"
+#   source = "../../../terraform-security-group"
 #   #it takes the module files from the above mentioned path
 #   project_name = var.project_name
 #   environment = var.environment
@@ -38,7 +38,7 @@
 # }
 
 # module "bastion" { #bastion is jump server.. we use this server to connect to private servers
-#   source = "../../terraform-security-group"
+#   source = "../../../terraform-security-group"
 #   #it takes the module files from the above mentioned path
 #   project_name = var.project_name
 #   environment = var.environment
@@ -51,7 +51,7 @@
 # }
 
 # # module "ansible" {
-# #   source = "../../terraform-security-group"
+# #   source = "../../../terraform-security-group"
 # #   #it takes the module files from the above mentioned path
 # #   project_name = var.project_name
 # #   environment = var.environment
@@ -64,7 +64,7 @@
 # # }
 
 # module "app_alb" { #app_alb is load balancer server.. we use this for load balancing
-#   source = "../../terraform-security-group"
+#   source = "../../../terraform-security-group"
 #   #it takes the module files from the above mentioned path
 #   project_name = var.project_name
 #   environment = var.environment
@@ -77,7 +77,7 @@
 # }
 
 # module "vpn" { #vpn
-#   source = "../../terraform-security-group"
+#   source = "../../../terraform-security-group"
 #   #it takes the module files from the above mentioned path
 #   project_name = var.project_name
 #   environment = var.environment
@@ -444,25 +444,25 @@ resource "aws_security_group_rule" "bastion_public" {
   security_group_id = module.bastion.sg_id
 }
 
-# #added as part of Jenkins CICD
-# resource "aws_security_group_rule" "backend_default_vpc" {
-#   type              = "ingress"
-#   from_port         = 22
-#   to_port           = 22
-#   protocol          = "tcp"
-#   cidr_blocks = ["172.31.0.0/16"]
-#   security_group_id = module.backend.sg_id
-# }
+#added as part of Jenkins CICD
+resource "aws_security_group_rule" "backend_default_vpc" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks = ["172.31.0.0/16"]
+  security_group_id = module.backend.sg_id
+}
 
-# #added as part of Jenkins CICD
-# resource "aws_security_group_rule" "frontend_default_vpc" {
-#   type              = "ingress"
-#   from_port         = 22
-#   to_port           = 22
-#   protocol          = "tcp"
-#   cidr_blocks = ["172.31.0.0/16"]
-#   security_group_id = module.frontend.sg_id
-# }
+#added as part of Jenkins CICD
+resource "aws_security_group_rule" "frontend_default_vpc" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks = ["172.31.0.0/16"]
+  security_group_id = module.frontend.sg_id
+}
 
 # not required, we can connect from VPN
 # resource "aws_security_group_rule" "frontend_public" {
